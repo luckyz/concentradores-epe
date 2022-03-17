@@ -1,88 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>turquito system</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!--laboratorio rafaela-->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>turquito system</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="index.css" rel="stylesheet"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <!-- Laboratorio Rafaela //-->
+    </head>
 
-<script>
- 
-        $(document).ready(function() {
-      //obtenemos el valor de los input
-      
-      $('#adicionar').click(function() {
-        var concentrador = document.getElementById("concentrador").value;
-        var direccion = document.getElementById("direccion").value;
-        var ip = document.getElementById("ip").value;
-        var i = 1; //contador para asignar id al boton que borrara la fila
-        var fila = '<tr id="row' + i + '"><td>' + concentrador + '</td><td>' + direccion + '</td><td>' + '<a href="http://'+ip+'">'+ ip +'</a>'+ '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
-      
-        i++;
-      
-        $('#mytable tr:first').after(fila);
-          $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-          var nFilas = $("#mytable tr").length;
-          $("#adicionados").append(nFilas - 1);
-          //le resto 1 para no contar la fila del header
-          document.getElementById("concentrador").value ="";
-          document.getElementById("direccion").value = "";
-          document.getElementById("ip").value = "";
-          document.getElementById("ip").focus();
-        });
-        
-      $(document).on('click', '.btn_remove', function() {
-        var button_id = $(this).attr("id");
-          //cuando da click obtenemos el id del boton
-          $('#row' + button_id + '').remove(); //borra la fila
-          //limpia el para que vuelva a contar las filas de la tabla
-          $("#adicionados").text("");
-          var nFilas = $("#mytable tr").length;
-          $("#adicionados").append(nFilas - 1);
-        });
-      });
-         
-          </script>
-      
-</head>
-<body style="background-color:aliceblue">
-<h1 style="text-align: center; color:lightskyblue; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">turquito system</h1>
+    <body style="background-color:aliceblue">
+    <h1 id="encabezado">turquito system</h1>
         <div class="container">
-          <!-- formulario de envio-->
+            <!-- formulario de envio //-->
             <form>
-           <div class="form-group">
-            <p>
-              <label>concentrador</label> <br>
-              <input id="concentrador" class="form-control" type="text" placeholder="numero de concentrador...">
+                <div class="form-group">
+                    <p>
+                        <label>Concentrador</label>
+                        <input id="concentrador" class="form-control" type="text" placeholder="Ingrese número de concentrador" autofocus>
+                    </p>
+                    <p>
+                        <label>Ubicación</label>
+                        <input id="direccion" class="form-control" type="text" placeholder="Ingrese dirección">
+                    </p>
+                    <p>
+                        <label>IP</label>
+                        <input id="ip" class="form-control" type="text" placeholder="Ingrese IP:puerto" maxlength="20" value="172.16." width="200">
+                    </p>
+                    <div> 
+                        <input id="adicionar" type="button" value="Agregar" class="btn btn-success">
+                    </div>
+                </div>
+            </form>
+    <!--
+            <p>Elementos en la Tabla:
+                <div id="adicionados"></div>
             </p>
-            <p>
-              <label>ubicacion</label> <br>
-              <input id="direccion" class="form-control" type="text" placeholder="direccion...">
-            </p>
-            <p>
-              <label>ip</label> <br>
-              <input id="ip" class="form-control" type="text" placeholder="ip + puerto">
-            </p>
-            <button id="adicionar" class="btn btn-success" type="button">agregar</button>
-          </div>
-        </form>
-        
-<!----        <p>Elementos en la Tabla:
-          <div id="adicionados"></div>
-        </p> -->
-        <hr>
-        <table  id="mytable" class="table table-bordered table-hover ">
-          <tr>
-            <th>concentrador</th>
-            <th>ubicacion</th>
-            <th>ip</th>
-            <th>Eliminar</th>
-        
-          </tr>
-        </table>
-         </div>
-</body>
+    //-->
+            <table  id="mytable" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="">Concentrador</th>
+                        <th>Ubicación</th>
+                        <th>IP</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                // obtenemos el valor de los input
+                $('#adicionar').click(function() {
+                    var concentrador = document.getElementById("concentrador").value;
+                    var direccion = document.getElementById("direccion").value;
+                    var ip = document.getElementById("ip").value;
+                    var i = 1; // contador para asignar id al boton que borrara la fila
+                    var fila = '<tr id="row' + i + '"><td>' + concentrador + '</td><td>' + direccion + '</td><td>' + '<a target="_blank" href="http://'+ip+'">'+ ip + '</a>'+ '</td><td align="center"><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'; //esto seria lo que contendria la fila
+                
+                    i++;
+                
+                    $('#mytable tr:first').after(fila);
+                        $("#adicionados").text(""); // esta instruccion limpia el div adicionados para que no se vayan acumulando
+                        var nFilas = $("#mytable tr").length;
+                        $("#adicionados").append(nFilas - 1);
+                        // le resto 1 para no contar la fila del header
+                        document.getElementById("concentrador").value ="";
+                        document.getElementById("direccion").value = "";
+                        document.getElementById("ip").value = "";
+                        document.getElementById("ip").focus();
+                });
+                
+                $(document).on('click', '.btn_remove', function() {
+                    var button_id = $(this).attr("id");
+                    // cuando da click obtenemos el id del boton
+                    $('#row' + button_id + '').remove(); //borra la fila
+                    // limpia el para que vuelva a contar las filas de la tabla
+                    $("#adicionados").text("");
+                    var nFilas = $("#mytable tr").length;
+                    $("#adicionados").append(nFilas - 1);
+                });
+            }); 
+        </script>
+    </body>
 </html>
